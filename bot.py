@@ -28,12 +28,12 @@ async def forward(message: types.Message):
         await bot.send_message(-1001926317748, "Ошибка при парсинге!!!!!")
         return 0
     if title in Data["topics"]:
-        await bot.copy_message(chat_id=-1001926317748, message_thread_id=Data["topics"][title], protect_content=True, message_id=message.message_id, from_chat_id=-1001926317748)
+        await bot.copy_message(chat_id=-1001926317748, message_thread_id=Data["topics"][title], message_id=message.message_id, from_chat_id=-1001926317748)
     else:
         temp = Telebot.create_forum_topic(chat_id=-1001926317748, name=title)
         Data["topics"][title] = temp.message_thread_id
         write_json("Bot/db.json",Data)
-        await bot.copy_message(chat_id=-1001926317748, message_thread_id=Data["topics"][title], protect_content=True, message_id=message.message_id, from_chat_id=-1001926317748)
+        await bot.copy_message(chat_id=-1001926317748, message_thread_id=Data["topics"][title], message_id=message.message_id, from_chat_id=-1001926317748)
     await message.delete()
 
 
