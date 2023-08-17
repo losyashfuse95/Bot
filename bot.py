@@ -12,16 +12,9 @@ def read_json(file_path):
         data = json.load(file)
     return data
 
-@dp.message_handler(commands=['start'])
-async def send_welcome(message: types.Message):
-    # await bot.forward_message(chat_id=-1001926317748, message_thread_id=182)
-    await message.forward(chat_id=-1001926317748, message_thread_id=182 )
-    # await bot.send_message(-1001926317748, "qwe", message_thread_id="182")
-    # await message.reply("Привет!\nЯ Эхобот от Skillbox!\nОтправь мне любое сообщение, а я тебе обязательно отвечу.", reply_markup=source_language_menu)
-
 
 @dp.message_handler()
-async def echo(message: types.Message):
+async def forward(message: types.Message):
     test = message.text
     parts = test.split(" ")
     if len(parts) >= 2:
