@@ -1,8 +1,7 @@
 from aiogram import Bot, Dispatcher, executor, types
 import json
 import telebot
-
-API_TOKEN = '6104892713:AAHHeqhRVvHgpwFrMXq8CYBwH9q82L2B3KA'
+from config import API_TOKEN
 
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
@@ -28,17 +27,18 @@ async def forward(message: types.Message):
         await bot.send_message(-1001926317748, "Ошибка при парсинге!!!!!")
         return 0
     if title in Data["topics"]:
-        await bot.copy_message(chat_id=-1001926317748, message_thread_id=Data["topics"][title], message_id=message.message_id, from_chat_id=-1001926317748)
+        await bot.copy_message(chat_id=-1001926317748, message_thread_id=Data["topics"][title], message_id=message.message_id, from_chat_id=message.chat.id)
     else:
         temp = Telebot.create_forum_topic(chat_id=-1001926317748, name=title)
         Data["topics"][title] = temp.message_thread_id
         write_json("Bot/db.json",Data)
-        await bot.copy_message(chat_id=-1001926317748, message_thread_id=Data["topics"][title], message_id=message.message_id, from_chat_id=-1001926317748)
-    await message.delete()
+        await bot.copy_message(chat_id=-1001926317748, message_thread_id=Data["topics"][title], message_id=message.message_id, from_chat_id=message.chat.id)
+    #await message.delete()
 
 
 if __name__ == '__main__':
     Data = read_json("Bot/db.json")
     executor.start_polling(dp, skip_updates=True)
+    
 
 
