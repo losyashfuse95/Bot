@@ -1,7 +1,7 @@
 from aiogram import Bot, Dispatcher, executor, types
 import json
 from config import API_TOKEN, dst_chat_id, src_chat_id
-
+exit(0)
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
 
